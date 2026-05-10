@@ -170,11 +170,55 @@ mkdir frontend-notes
 cd frontend-notes
 git init
 
-# 添加笔记文件
-git add .
+# 添加笔记文件 先在本地创建git仓库
+git add .  把文件放到暂存区
+git commit -m "first commit"  把暂存区里的文件确认打包，给一个版本说明 first commit。执行完这一步后，代码才真正记录到本地 Git 仓库
 git commit -m "docs: 初始化前端笔记"
 
-# 关联 GitHub 远程仓库（先网页上建好空仓库）
-git remote add origin https://github.com/你的用户名/frontend-notes.git
+# 关联 GitHub 远程仓库（先网页上建好空仓库）https://github.com/new
+git remote add origin https://github.com/baozizhang158/frontend-notes.git
 git push -u origin main
+本地默认名字是master
+git push -u origin master:main 意思是：把你的本地 master 分支推送到远程 main 分支
 ```
+
+#### 以后上传三步走
+
+```bash
+git add .
+git commit -m "更新笔记"
+git push
+```
+
+## 工作中用git
+
+### 1. 拉取最新代码（避免冲突）
+
+`git pull`
+
+### 2. 切换到自己的开发分支（比如 feature-login）
+
+`git checkout -b feature-login`
+
+### 3. 写代码... 改完文件后
+
+### 4. 添加
+
+`git add .`
+
+### 5. 提交
+
+`git commit -m "feat: 完成登录功能"`
+
+## Git 提交备注规范（精简版）
+
+| 类型    | 含义          | 示例                           |
+| ------- | ------------- | ------------------------------ |
+| `docs`  | 文档/笔记更新 | `docs: 补充 uni-app 搭建步骤`  |
+| `fix`   | 修复错误      | `fix: 修改笔记里的命令写错`    |
+| `feat`  | 新增内容      | `feat: 添加 Vue3 生命周期笔记` |
+| `style` | 格式调整      | `style: 调整表格排版`          |
+
+### 6. 推送远程（第一次要用 -u）
+
+`git push -u origin feature-login`
