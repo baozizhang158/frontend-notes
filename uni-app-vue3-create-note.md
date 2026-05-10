@@ -188,11 +188,20 @@ git push -u origin master:main 意思是：把你的本地 master 分支推送�
 git add .
 git commit -m "更新笔记"
 git push
+
+(git push -u origin master:main
+-u 会记住关联，以后直接 git push 就行。)
+
 ```
 
 ## 工作中用git
 
-### 1. 拉取最新代码（避免冲突）
+### 克隆项目 入职第一天：克隆项目（只一次）
+
+`git clone https://github.com/公司仓库地址.git`
+cd 项目文件夹
+
+### 1. 每天上班：拉取最新代码（避免冲突）
 
 `git pull`
 
@@ -212,12 +221,13 @@ git push
 
 ## Git 提交备注规范（精简版）
 
-| 类型    | 含义          | 示例                           |
+一定空格！
+| 类型 | 含义 | 示例 |
 | ------- | ------------- | ------------------------------ |
-| `docs`  | 文档/笔记更新 | `docs: 补充 uni-app 搭建步骤`  |
-| `fix`   | 修复错误      | `fix: 修改笔记里的命令写错`    |
-| `feat`  | 新增内容      | `feat: 添加 Vue3 生命周期笔记` |
-| `style` | 格式调整      | `style: 调整表格排版`          |
+| `docs` | 文档/笔记更新 | `docs: 补充 uni-app 搭建步骤` |
+| `fix` | 修复错误 | `fix: 修改笔记里的命令写错` |
+| `feat` | 新增内容 | `feat: 添加 Vue3 生命周期笔记` |
+| `style` | 格式调整 | `style: 调整表格排版` |
 
 ### 6. 推送远程（第一次要用 -u）
 
