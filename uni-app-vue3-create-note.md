@@ -1,0 +1,180 @@
+## uni-app + Vue3 项目搭建笔记
+
+#### 切换路径到当前文件夹：`cd C:\Users\Administrator\Desktop\前端\笔记`
+
+### 删除不小心创建的.git文件夹：
+
+- `rmdir .git` → 删除空文件夹
+- `rmdir /s .git` → 强制删除非空文件夹（包括里面所有内容）
+- 输入 `y` 确认删除
+
+### 一、环境准备
+
+| 工具           | 检查命令     | 说明                                         |
+| -------------- | ------------ | -------------------------------------------- |
+| Node.js        | `node -v`    | 需要 18+ 或 20+                              |
+| pnpm           | `pnpm -v`    | 包管理器，比 npm 快                          |
+| 微信开发者工具 | 官网下载安装 | 必须开启：**设置 → 安全设置 → 开启服务端口** |
+
+---
+
+### 二、创建项目
+
+```bash
+# 从官方模板创建 Vue3 + TS 项目
+npx degit dcloudio/uni-preset-vue#vite-ts my-uni-app
+
+# 进入目录
+cd my-uni-app
+
+# 安装依赖
+pnpm install
+```
+
+---
+
+### 三、项目结构（重点文件）
+
+```
+my-uni-app/
+├── src/
+│   ├── pages/           # 页面文件（主要开发目录）
+│   ├── components/      # 公共组件
+│   ├── store/           # Pinia 状态管理
+│   ├── utils/           # 工具函数
+│   ├── App.vue          # 根组件
+│   ├── main.ts          # 入口文件
+│   └── pages.json       # 路由配置（新增页面需注册）
+├── index.html
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+---
+
+### 四、核心文件说明
+
+#### `src/main.ts`
+
+```ts
+import { createSSRApp } from "vue";
+import App from "./App.vue";
+
+export function createApp() {
+  const app = createSSRApp(App);
+  return { app };
+}
+```
+
+> uni-app 标准入口，和普通 Vue 的 `createApp(App).mount('#app')` 不同。
+
+#### `src/pages.json`（路由配置）
+
+```json
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": { "navigationBarTitleText": "首页" }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "我的应用",
+    "navigationBarBackgroundColor": "#F8F8F8"
+  }
+}
+```
+
+#### `src/App.vue`
+
+```vue
+<script setup lang="ts">
+import { onLaunch, onShow, onHide } from "@dcloudio/uni-app";
+
+onLaunch(() => {
+  console.log("App Launch");
+});
+onShow(() => {
+  console.log("App Show");
+});
+onHide(() => {
+  console.log("App Hide");
+});
+</script>
+```
+
+> 这里的生命周期是小程序级别的，不是 Vue 的 `onMounted`。
+
+---
+
+### 五、H5 练习 → uni-app 写法对照表
+
+| H5 练习        | uni-app 写法         | 原因             |
+| -------------- | -------------------- | ---------------- |
+| `div`          | `view`               | uni-app 内置组件 |
+| `span`         | `text`               | 同上             |
+| `img`          | `image`              | 同上             |
+| `@click`       | `@tap`               | 移动端事件       |
+| `px`           | `rpx`                | 自适应单位       |
+| `localStorage` | `uni.setStorageSync` | 跨端 API         |
+| `ul/li`        | `view` + `v-for`     | 无列表语义标签   |
+
+---
+
+### 七、运行到微信开发者工具
+
+```bash
+# 编译微信小程序
+pnpm run dev:mp-weixin
+```
+
+编译完成后，根目录下生成 `dist/dev/mp-weixin` 文件夹。
+
+**微信开发者工具操作：**
+
+- 打开工具 → **导入项目**
+- 目录选择 `dist/dev/mp-weixin`
+- AppID 使用测试号或自己的
+
+> 热更新：VSCode 改代码保存后自动重新编译，微信开发者工具自动刷新。
+
+---
+
+### 八、VS Code 插件推荐
+
+| 插件                   | 作用                   |
+| ---------------------- | ---------------------- |
+| Vue - Official (Volar) | Vue 3 语法支持（必装） |
+| uni-create-view        | 快速新建 uni-app 页面  |
+| uni-helper             | uni-app 代码提示       |
+| TypeScript Vue Plugin  | TS 支持                |
+
+---
+
+### 九、常用命令速查
+
+| 命令                       | 作用             |
+| -------------------------- | ---------------- |
+| `pnpm run dev:mp-weixin`   | 运行到微信小程序 |
+| `pnpm run dev:h5`          | 运行到 H5        |
+| `pnpm run build:mp-weixin` | 打包小程序       |
+| `pnpm run build:h5`        | 打包 H5          |
+
+**个人学习笔记推荐做法：**
+
+```bash
+# 创建笔记仓库
+mkdir frontend-notes
+cd frontend-notes
+git init
+
+# 添加笔记文件
+git add .
+git commit -m "docs: 初始化前端笔记"
+
+# 关联 GitHub 远程仓库（先网页上建好空仓库）
+git remote add origin https://github.com/你的用户名/frontend-notes.git
+git push -u origin main
+```
