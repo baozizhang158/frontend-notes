@@ -1,3 +1,52 @@
+# Git 实习标准操作（完整版）
+
+## 一、克隆项目（入职第一天）
+
+```bash
+git clone 公司仓库地址.git
+cd 项目名
+pnpm install
+code . 用vscode打开项目
+```
+
+## 二、每天上班（继续昨天的任务）
+
+```bash
+git checkout main
+git pull
+git checkout feature/你的分支名
+```
+
+## 三、开始一个新任务
+
+```bash
+git checkout main
+git pull
+git checkout -b feature/新任务分支名
+```
+
+## 四、写代码、提交、推送
+
+```bash
+git add .
+git commit -m "feat: 完成了xxx功能"
+git push origin feature/你的分支名
+```
+
+提交信息类型：`feat`(新功能)、`fix`(修bug)、`style`(样式)、`refactor`(重构)、`docs`(文档)
+
+## 五、发起合并请求
+
+去 GitHub/Gitee 网页，找到你的分支，点击「发起合并请求」，指定同事 review。
+
+## 六、合并完成后，删除本地分支
+
+```bash
+git checkout main
+git pull
+git branch -d feature/你的分支名
+```
+
 ## uni-app + Vue3 项目搭建笔记
 
 #### 切换路径到当前文件夹：`cd C:\Users\Administrator\Desktop\前端\笔记`
@@ -7,6 +56,8 @@
 - `rmdir .git` → 删除空文件夹
 - `rmdir /s .git` → 强制删除非空文件夹（包括里面所有内容）
 - 输入 `y` 确认删除
+
+---
 
 ### 一、环境准备
 
@@ -20,9 +71,24 @@
 
 ### 二、创建项目
 
+#### Gitee（国内服务器）
+
+`npx degit gitee:dcloud/uni-preset-vue#vite-ts my-project`
+
+## uni-app 官方模板分支对照表
+
+| 模板类型                  | 分支名           | 命令                                               |
+| ------------------------- | ---------------- | -------------------------------------------------- |
+| Vue3 + TypeScript（推荐） | `vite-ts`        | `npx degit dcloudio/uni-preset-vue#vite-ts 项目名` |
+| Vue3 + JavaScript         | `vite`           | `npx degit dcloudio/uni-preset-vue#vite 项目名`    |
+| Vue2 + JavaScript         | 默认（不加 `#`） | `npx degit dcloudio/uni-preset-vue 项目名`         |
+| Vue2 + TypeScript         | `ts`             | `npx degit dcloudio/uni-preset-vue#ts 项目名`      |
+
 ```bash
 # 从官方模板创建 Vue3 + TS 项目
-npx degit dcloudio/uni-preset-vue#vite-ts my-uni-app
+
+`npx degit dcloudio/uni-preset-vue#vite-ts 项目名`
+#项目名要求小写加短斜杠
 
 # 进入目录
 cd my-uni-app
@@ -162,6 +228,10 @@ pnpm run dev:mp-weixin
 | `pnpm run build:mp-weixin` | 打包小程序       |
 | `pnpm run build:h5`        | 打包 H5          |
 
+---
+
+---
+
 **个人学习笔记推荐做法：**
 
 ```bash
@@ -232,3 +302,7 @@ cd 项目文件夹
 ### 6. 推送远程（第一次要用 -u）
 
 `git push -u origin feature-login`
+
+```
+
+```
